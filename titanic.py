@@ -8,6 +8,9 @@ cols=df.columns.values.tolist()
 df['survived']=df['survived'].replace('Yes',1)
 df['survived']=df['survived'].replace('No',0)
 
+df['sex']=df['sex'].replace('male',1)
+df['sex']=df['sex'].replace('female',0)
+
 df['pclass']=df['pclass'].replace(1,'Upper Class')
 df['pclass']=df['pclass'].replace(2,'Middle Class')
 df['pclass']=df['pclass'].replace(3,'Lower Class')
@@ -49,7 +52,9 @@ ag=df['age'].tolist()
 fare=df['fare'].tolist()
 
 
-df=df[['salutation','fname','lname','age','sex','Address 1','State / Country','embarked','Passenger Class','siblings/spouse in titanic','parents/children in titanic','ticket','fare','cabin','survived','boat','mortuary boat no']]
+df=df[['salutation','fname','lname','age','sex','Address 1','State / Country',
+'embarked','Passenger Class','siblings/spouse in titanic',
+'parents/children in titanic','ticket','fare','cabin','survived','boat','mortuary boat no']]
 
 df=df.sort_values('fname')
 
@@ -76,8 +81,17 @@ total= pd.crosstab(df['survived'],df['sex'])
 total1 = pd.crosstab(df['survived'],df['Passenger Class'])
 
 mean_survival=df.groupby('Passenger Class').survived.mean()
+gender_survival=df.groupby(['sex']).survived.count()
+gender_survival_mean=df.groupby(['sex']).survived.mean()
+
+
 survival_groups=df.groupby(['age_group']).survived.mean()
-survival_by_mail_female=df.groupby(['sex','age_group']).survived.mean()
+survival_by_mail_female_mean=df.groupby(['sex','age_group']).survived.mean()
+survival_by_mail_female=df.groupby(['sex','age_group']).survived.count()
+
+survival_by_salutation_mean=df.groupby(['salutation']).survived.mean()
+survival_by_salutation=df.groupby(['salutation']).survived.count()
+
 
 
 
