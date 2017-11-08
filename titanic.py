@@ -3,6 +3,7 @@ source_dir=('.\data')
 df = pd.read_excel(source_dir+'\\filtered.xls')
 
 cols=df.columns.values.tolist()
+df=df.sort_values('fname')
 """
 df['survived']=df['survived'].replace(1,'Yes')
 df['survived']=df['survived'].replace(0,'No')
@@ -35,8 +36,13 @@ df['salutaion'] = df.Passenger_Name.str.extract(r',\s*([^\.]*)\s*\.', expand=Fal
 list(df['salutaion'].unique())
 df.rename(columns={'the Countess':'Countess'}, inplace=True)
 
+df['lname']= df['sallas'].str.split('.').str[1]
+
+df = df.drop('sallas', 1)
+df = df.drop('Passenger_Name', 1)
 """
+nulls=df.isnull().sum()
 
 
-
+ 
 df.to_excel(source_dir+'\\filtered.xls') 
